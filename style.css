@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;600&display=swap');
+
+:root {
+  --navy: #264653;
+  --teal: #2a9d8f;
+  --sand: #fdf6ec;
+  --coral: #e76f51;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  line-height: 1.7;
+  color: var(--navy);
+  background: var(--sand);
+}
+
+header {
+  background: var(--navy);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header .brand { color: var(--sand); font-family: 'Merriweather', serif; font-weight: 700; font-size: 1.2rem; }
+
+nav a {
+  color: var(--sand);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+nav a:hover, nav a.active { border-bottom-color: var(--coral); }
+
+main { max-width: 860px; margin: 2rem auto; padding: 0 1.5rem; }
+
+h1 { font-family: 'Merriweather', serif; font-size: 2.8rem; margin-bottom: 0.5rem; color: var(--navy); }
+h2 { font-family: 'Merriweather', serif; font-size: 1.6rem; color: var(--teal); margin-top: 2rem; }
+
+a { color: var(--coral); }
+
+img.photo {
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+  margin: 1.5rem auto;
+  box-shadow: 0 4px 12px rgba(38, 70, 83, 0.25);
+}
+img.photo.small { max-width: 320px; }
+
+ul, ol { padding-left: 1.5rem; }
+li { margin-bottom: 0.4rem; }
+
+.card {
+  background: #fff;
+  border-left: 5px solid var(--teal);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+#chart { background: #fff; border-radius: 12px; padding: 1.25rem 1.5rem; border: 1px solid #e3e3e3; }
+#chart svg { width: 100%; height: auto; }
+.chart-title { font-size: 1.15rem; font-weight: 600; }
+.chart-sub { font-size: 0.9rem; color: #6b7a80; margin-bottom: 0.5rem; }
+.bar { fill: #6699f0; transition: fill 0.15s; }
+.bar:hover { fill: #3b6fd4; }
+.grid line { stroke: #d5d9db; stroke-dasharray: 2 4; }
+.axis text { font-size: 14px; fill: #55656b; }
+.tooltip {
+  position: absolute; pointer-events: none; opacity: 0;
+  background: var(--navy); color: #fff; padding: 6px 10px;
+  border-radius: 6px; font-size: 0.85rem; transition: opacity 0.1s;
+}
+
+footer { background: var(--navy); color: var(--sand); padding: 1.5rem 2rem; margin-top: 3rem; text-align: center; }
+footer a { color: #e9c46a; margin: 0 0.6rem; }

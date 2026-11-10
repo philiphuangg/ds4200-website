@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data Visualization | Linxuan Huang</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+</head>
+<body>
+  <header>
+    <span class="brand">Linxuan Huang</span>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="visualization.html" class="active">Data Visualization</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2 style="font-size:2rem;margin-top:0">Data Visualization</h2>
+
+    <img class="photo" src="images/charts.svg" alt="Illustration of a line chart with highlighted data points">
+
+    <p>
+      Data visualization is something I've been learning more about through my DS4200 class at Northeastern. Before taking this course, I mostly thought of charts and graphs as ways to present information, but I've started to realize there's a lot more to it.
+    </p>
+    <p>
+      What I find interesting is how the same dataset can tell completely different stories depending on how it's presented. Something as simple as changing the colors, choosing a different chart type, or adjusting the scale can make information much easier or harder to understand.
+    </p>
+    <p>
+      I've also been learning about different tools for creating visualizations, including Altair and D3.js. While I'm still getting familiar with them, I like being able to turn raw data into something interactive instead of just looking at numbers in a spreadsheet.
+    </p>
+    <p>
+      One thing I've noticed is that making a good visualization isn't necessarily about making it look impressive. It's more about helping people understand the information without having to think too hard about what they're looking at.
+    </p>
+    <p>
+      Outside of class, I can see how these skills could be useful in areas like finance, sports, and business, where people rely on data to make decisions. I think being able to communicate information clearly is just as important as knowing how to analyze it.
+    </p>
+
+    <h2>What I've Been Learning About</h2>
+    <ul>
+      <li>How color choices affect the way people read a chart</li>
+      <li>Picking the right chart type for the question being asked</li>
+      <li>How scales and axes can change the story a chart tells</li>
+      <li>Building interactive visualizations with Altair and D3.js</li>
+    </ul>
+
+    <h2>A Simple Interactive Visualization</h2>
+    <p>
+      Below is a basic interactive bar chart showing how I spend my free time during a typical week. It's not based on any official dataset, just some example numbers I put together to practice using D3.js.
+    </p>
+    <p>
+      The chart shows how many hours I spend on different activities, including playing sports, cooking, gaming, and watching shows. You can hover over each bar to see the exact number of hours.
+    </p>
+
+    <div id="chart">
+      <div class="chart-title">Hours spent on hobbies per week</div>
+      <div class="chart-sub">Example data I made up for practice</div>
+      <div id="chart-area"></div>
+    </div>
+    <div id="tooltip" class="tooltip"></div>
+  </main>
+
+  <footer id="contact">
+    <h2 style="color:#e9c46a;margin-top:0">Contact</h2>
+    <p>
+      <a href="mailto:huang.linx@northeastern.edu">huang.linx@northeastern.edu</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/philip-huang-lx" target="_blank" rel="noopener">LinkedIn</a>
+    </p>
+    <p><a href="index.html">&larr; Back to Home</a></p>
+  </footer>
+
+  <script>
+    const data = [
+      { activity: "Tennis", hours: 6 },
+      { activity: "Soccer", hours: 4 },
+      { activity: "Cooking", hours: 5 },
+      { activity: "Gaming", hours: 7 },
+      { activity: "Watching shows", hours: 8 }
+    ];
+
+    const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+    const width = 760 - margin.left - margin.right;
+    const height = 380 - margin.top - margin.bottom;
+
+    const svg = d3.select("#chart-area").append("svg")
+      .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleBand().domain(data.map(d => d.activity)).range([0, width]).padding(0.12);
+    const y = d3.scaleLinear().domain([0, 9]).range([height, 0]);
+
+    // dotted gridlines + y axis labels like "6 hrs"
+    const ticks = [0, 3, 6, 9];
+    svg.append("g").attr("class", "grid").selectAll("line").data(ticks).enter().append("line")
+      .attr("x1", 0).attr("x2", width).attr("y1", d => y(d)).attr("y2", d => y(d));
+    svg.append("g").attr("class", "axis").selectAll("text").data(ticks).enter().append("text")
+      .attr("x", -12).attr("y", d => y(d) + 4).attr("text-anchor", "end").text(d => `${d} hrs`);
+
+    svg.append("g").attr("class", "axis")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x).tickSize(0).tickPadding(14))
+      .select(".domain").remove();
+
+    const tooltip = d3.select("#tooltip");
+
+    svg.selectAll(".bar").data(data).enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", d => x(d.activity))
+      .attr("width", x.bandwidth())
+      .attr("rx", 8)
+      .attr("y", height)
+      .attr("height", 0)
+      .on("mouseover", (event, d) => {
+        tooltip.style("opacity", 1).text(`${d.activity}: ${d.hours} hours per week`);
+      })
+      .on("mousemove", event => {
+        tooltip.style("left", (event.pageX + 12) + "px").style("top", (event.pageY - 36) + "px");
+      })
+      .on("mouseout", () => tooltip.style("opacity", 0))
+      .transition().duration(800)
+      .attr("y", d => y(d.hours))
+      .attr("height", d => height - y(d.hours));
+  </script>
+</body>
+</html>

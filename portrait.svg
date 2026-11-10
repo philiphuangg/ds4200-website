@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Abstract illustration of a bar chart with a sun">
+  <rect width="400" height="400" fill="#fdf6ec"/>
+  <circle cx="300" cy="100" r="50" fill="#e76f51"/>
+  <rect x="50" y="250" width="50" height="100" fill="#264653"/>
+  <rect x="120" y="200" width="50" height="150" fill="#2a9d8f"/>
+  <rect x="190" y="150" width="50" height="200" fill="#e9c46a"/>
+  <rect x="260" y="220" width="50" height="130" fill="#f4a261"/>
+  <line x1="30" y1="350" x2="370" y2="350" stroke="#264653" stroke-width="4"/>
+</svg>
